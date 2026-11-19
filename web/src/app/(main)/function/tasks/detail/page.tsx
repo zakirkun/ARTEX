@@ -43,6 +43,7 @@ import { AssetsTab } from "./_tabs/assets-tab";
 import { BroadcastTab } from "./_tabs/broadcast-tab";
 import { CoverageGraphTab } from "./_tabs/coverage-graph-tab";
 import { CredentialsTab } from "./_tabs/credentials-tab";
+import { DiffTab } from "./_tabs/diff-tab";
 import { FindingsTab } from "./_tabs/findings-tab";
 import { GraphTab } from "./_tabs/graph-tab";
 import { InterceptTab } from "./_tabs/intercept-tab";
@@ -58,6 +59,7 @@ const TABS = [
   { value: "graph", label: "Exploration graph" },
   { value: "broadcast", label: "Broadcast" },
   { value: "findings", label: "Findings" },
+  { value: "diff", label: "Diff" },
   { value: "retests", label: "Retests" },
   { value: "assets", label: "Test assets" },
   { value: "credentials", label: "Credentials" },
@@ -441,6 +443,9 @@ function TaskDetailInner() {
         </TabsContent>
         <TabsContent value="findings" className="mt-0">
           <FindingsTab taskId={id} />
+        </TabsContent>
+        <TabsContent value="diff" className="mt-0">
+          <DiffTab taskId={id} />
         </TabsContent>
         <TabsContent value="retests" className="mt-0">
           <RetestsTab key={id} taskId={id} />

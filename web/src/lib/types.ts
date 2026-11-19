@@ -534,6 +534,38 @@ export interface FindingsPage {
   page_size: number;
 }
 
+// TaskDiffEntry is one finding as it appears in a diff bucket. The fingerprint is
+// the cross-run identity the match is made on; it is derived from vulnerability
+// class + assets + location, never from the model-authored name or summary.
+export interface TaskDiffEntry {
+  fingerprint: string;
+  vulnclass: string;
+  name: string;
+  severity: string;
+  status: string;
+  finding_id: number;
+  asset_ids: number[];
+}
+
+// TaskDiff compares two runs of the same target. `new` is the property name the
+// API emits (a reserved word in JS, but valid as a property).
+export interface TaskDiff {
+  base_task_id: number;
+  head_task_id: number;
+  new: TaskDiffEntry[];
+  persisting: TaskDiffEntry[];
+  resolved: TaskDiffEntry[];
+  regressed: TaskDiffEntry[];
+  base_complete: boolean;
+  head_complete: boolean;
+  // resolved_trustworthy is false unless the head run covered its scope: a scan
+  // that stopped early never looked at the surface, so "resolved" would be an
+  // absence of evidence rather than proof of a fix.
+  resolved_trustworthy: boolean;
+  resolved_note?: string;
+  untracked: number;
+}
+
 export interface FindingGroup {
   task_id: string | number | null;
   task_name?: string; // optional task name; empty/absent = untitled
