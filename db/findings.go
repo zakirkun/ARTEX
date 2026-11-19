@@ -41,6 +41,11 @@ type DBFinding struct {
 
 	Counterevidence     string // what was tested and did not work; optional, "" = not given
 	ConfidenceRationale string // why the conclusion holds; optional, "" = not given
+
+	// Fingerprint is the cross-run identity (see db/fingerprint.go). Empty or
+	// FingerprintUnstable means the row predates the column or had nothing stable
+	// to key on; the diff reports those separately rather than bucketing them.
+	Fingerprint string
 }
 
 // Finding triage states (findings.status).
