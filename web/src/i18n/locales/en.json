@@ -1,0 +1,63 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "loading": "Loading...",
+    "noResults": "No results",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "refresh": "Refresh",
+    "other": "Other"
+  },
+  "search": {
+    "placeholder": "Search dashboards, users, and more…",
+    "noResults": "No results found."
+  },
+  "nav": {
+    "groupFunctions": "Functions",
+    "groupSystem": "System",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "tasks": "Tasks",
+    "findings": "Findings",
+    "traffic": "Traffic",
+    "commands": "Tool Execution",
+    "llmRecords": "LLM Recording",
+    "assets": "Assets",
+    "sync": "Asset Sync",
+    "workspace": "Workspace",
+    "llm": "LLM",
+    "agents": "Agent",
+    "mcp": "MCP",
+    "skills": "Skill",
+    "tools": "Tools",
+    "notify": "Notifications",
+    "intercept": "Interception Rules",
+    "assetIntercept": "Asset Interception",
+    "approvals": "Approval Records",
+    "logs": "Logs",
+    "settings": "System Settings"
+  },
+  "navUser": {
+    "changePassword": "Change password",
+    "signOut": "Sign out",
+    "language": "Language"
+  },
+  "language": {
+    "title": "Language",
+    "english": "English",
+    "indonesian": "Bahasa Indonesia"
+  },
+  "settings": {
+    "title": "System Settings",
+    "subtitle": "Global runtime switches",
+    "languageSection": "Language & Region",
+    "languageDescription": "Choose the interface language. The setting is saved in your browser."
+  }
+}

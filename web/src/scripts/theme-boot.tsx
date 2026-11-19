@@ -7,6 +7,7 @@
  * preventing layout or theme flicker and keeping RootLayout fully static.
  */
 import { PREFERENCE_DEFAULTS, PREFERENCE_PERSISTENCE } from "@/lib/preferences/preferences-config";
+import { LOCALE_DEFAULT, LOCALE_HTML_LANG, LOCALE_KEY } from "@/i18n/config";
 
 export function ThemeBootScript() {
   const persistence = JSON.stringify({
@@ -17,6 +18,7 @@ export function ThemeBootScript() {
     navbar_style: PREFERENCE_PERSISTENCE.navbar_style,
     sidebar_variant: PREFERENCE_PERSISTENCE.sidebar_variant,
     sidebar_collapsible: PREFERENCE_PERSISTENCE.sidebar_collapsible,
+    [LOCALE_KEY]: "client-cookie",
   });
 
   const defaults = JSON.stringify({
@@ -27,7 +29,11 @@ export function ThemeBootScript() {
     navbar_style: PREFERENCE_DEFAULTS.navbar_style,
     sidebar_variant: PREFERENCE_DEFAULTS.sidebar_variant,
     sidebar_collapsible: PREFERENCE_DEFAULTS.sidebar_collapsible,
+    [LOCALE_KEY]: LOCALE_DEFAULT,
   });
+
+  // Maps each locale code to the BCP-47 lang tag written to <html>.
+  const htmlLang = JSON.stringify(LOCALE_HTML_LANG);
 
   const code = `
     (function () {
@@ -77,6 +83,7 @@ export function ThemeBootScript() {
         var rawNavbarStyle = readPreference("navbar_style", DEFAULTS.navbar_style);
         var rawSidebarVariant = readPreference("sidebar_variant", DEFAULTS.sidebar_variant);
         var rawSidebarCollapsible = readPreference("sidebar_collapsible", DEFAULTS.sidebar_collapsible);
+        var rawLang = readPreference("${LOCALE_KEY}", DEFAULTS["${LOCALE_KEY}"]);
 
         var isValidMode = rawMode === "dark" || rawMode === "light" || rawMode === "system";
         var mode = isValidMode ? rawMode : DEFAULTS.theme_mode;
@@ -90,6 +97,8 @@ export function ThemeBootScript() {
         var navbarStyle = rawNavbarStyle || DEFAULTS.navbar_style;
         var sidebarVariant = rawSidebarVariant || DEFAULTS.sidebar_variant;
         var sidebarCollapsible = rawSidebarCollapsible || DEFAULTS.sidebar_collapsible;
+        var HTML_LANG = ${htmlLang};
+        var lang = HTML_LANG[rawLang] ? rawLang : DEFAULTS["${LOCALE_KEY}"];
 
         root.classList.toggle("dark", resolvedMode === "dark");
         root.setAttribute("data-theme-mode", mode);
@@ -99,6 +108,8 @@ export function ThemeBootScript() {
         root.setAttribute("data-navbar-style", navbarStyle);
         root.setAttribute("data-sidebar-variant", sidebarVariant);
         root.setAttribute("data-sidebar-collapsible", sidebarCollapsible);
+        root.lang = HTML_LANG[lang] || "en";
+        root.setAttribute("data-lang", lang);
 
         root.style.colorScheme = resolvedMode === "dark" ? "dark" : "light";
 

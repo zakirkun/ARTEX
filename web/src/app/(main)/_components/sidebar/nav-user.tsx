@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { EllipsisVertical, KeyRound, LogOut } from "lucide-react";
+import { Check, EllipsisVertical, KeyRound, Languages, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,9 +11,14 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { LOCALE_LABELS, LOCALE_VALUES, type Locale } from "@/i18n/config";
+import { useI18n } from "@/i18n/i18n-provider";
 import { auth } from "@/lib/auth";
 import { getInitials } from "@/lib/utils";
 
@@ -29,6 +34,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const { t, locale, setLocale } = useI18n();
   const [pwOpen, setPwOpen] = React.useState(false);
 
   function handleLogout() {
@@ -79,12 +85,30 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setPwOpen(true)}>
               <KeyRound />
-              Change password
+              {t("navUser.changePassword")}
             </DropdownMenuItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <Languages />
+                {t("navUser.language")}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>
+                {LOCALE_VALUES.map((value: Locale) => (
+                  <DropdownMenuItem
+                    key={value}
+                    onClick={() => setLocale(value)}
+                    className="flex items-center justify-between gap-2"
+                  >
+                    <span>{LOCALE_LABELS[value]}</span>
+                    {locale === value && <Check className="size-4" />}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
               <LogOut />
-              Sign out
+              {t("navUser.signOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
