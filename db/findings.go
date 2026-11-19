@@ -120,10 +120,14 @@ func (d *DB) AddFinding(taskID, nodeID int64, vulnclass, name, severity, summary
 		nid = &nodeID
 	}
 	var id int64
+	// location is "" because AddFinding carries no surface; see the granularity
+	// note on FindingFingerprint. Asset ids still separate endpoints, which are
+	// unique per URL+method.
+	fingerprint := FindingFingerprint(vulnclass, assetIDs, "")
 	err := d.QueryRow(
-		`INSERT INTO findings (task_id, node_id, vulnclass, name, severity, summary, evidence, worker, asset_ids)
-		 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
-		tid, nid, vulnclass, name, severity, summary, evidence, worker, string(aidsJSON),
+		`INSERT INTO findings (task_id, node_id, vulnclass, name, severity, summary, evidence, worker, asset_ids, fingerprint)
+		 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
+		tid, nid, vulnclass, name, severity, summary, evidence, worker, string(aidsJSON), fingerprint,
 	).Scan(&id)
 	return id, err
 }

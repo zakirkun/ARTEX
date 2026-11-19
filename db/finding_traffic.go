@@ -407,8 +407,9 @@ VALUES($1,'finding',$2,9,'confirmed',$3) RETURNING id`, in.ExplorationID, string
 		assets = []int64{}
 	}
 	raw, _ := json.Marshal(assets)
-	if err := tx.QueryRow(`INSERT INTO findings(task_id,node_id,vulnclass,name,severity,summary,evidence,worker,asset_ids,counterevidence,confidence_rationale)
-VALUES(NULLIF($1,0),$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id`, in.TaskID, out.NodeID, in.VulnClass, in.Name, in.Severity, in.Summary, in.Evidence, in.Worker, string(raw), in.Counterevidence, in.ConfidenceRationale).Scan(&out.FindingID); err != nil {
+	fingerprint := FindingFingerprint(in.VulnClass, assets, "")
+	if err := tx.QueryRow(`INSERT INTO findings(task_id,node_id,vulnclass,name,severity,summary,evidence,worker,asset_ids,counterevidence,confidence_rationale,fingerprint)
+VALUES(NULLIF($1,0),$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id`, in.TaskID, out.NodeID, in.VulnClass, in.Name, in.Severity, in.Summary, in.Evidence, in.Worker, string(raw), in.Counterevidence, in.ConfidenceRationale, fingerprint).Scan(&out.FindingID); err != nil {
 		return nil, err
 	}
 	// Register a push event in the **same transaction**: committing guarantees

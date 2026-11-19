@@ -35,6 +35,14 @@ const FingerprintUnstable = "unstable"
 // them would make every re-scan look like total churn — the exact failure this
 // feature exists to prevent.
 //
+// Granularity note (v1): the two write paths (AddFinding, RecordFinding) have
+// no surface field, so they pass location "". Surface separation then comes
+// from assetIDs alone, which is sufficient whenever the finding is bound to
+// endpoint assets — those are unique per URL+method, so two different paths are
+// two different assets. A finding bound only to a coarse asset (a root domain)
+// will group all its same-class instances together until a surface is threaded
+// through. That is a known limit, not an accident.
+//
 // The result is "v1:<16 hex chars>", or FingerprintUnstable when there is
 // nothing stable to key on.
 func FindingFingerprint(vulnclass string, assetIDs []int64, location string) string {
