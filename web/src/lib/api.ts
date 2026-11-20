@@ -89,6 +89,7 @@ import type {
   TaskAssetScopeMutation,
   TaskCategory,
   TaskConstraint,
+  TaskDiff,
   TaskGoal,
   TaskLLMResolutions,
   TaskNode,
@@ -420,6 +421,11 @@ export const api = {
     }>(`/tasks/${id}/coverage`),
   // Asset coverage graph: every in-scope asset + root-domain/company nodes used for connection, with tested/in_scope.
   taskCoverageGraph: (id: string) => get<CoverageGraphData>(`/tasks/${id}/coverage-graph`),
+  // Diff two runs of the same target: what is new, persisting, resolved or regressed.
+  // The path task is the head ("now"); `base` is the earlier run. `resolved_trustworthy`
+  // is false when the head run did not cover its scope, in which case "resolved" is unproven.
+  taskDiff: (id: string, baseTaskId: string) =>
+    get<TaskDiff>(`/tasks/${encodeURIComponent(id)}/diff?base=${encodeURIComponent(baseTaskId)}`),
   // Global llm_usage aggregate (the dashboard's new token view): totals per profile + daily buckets.
   usageStats: (days = 365) => get<UsageStats>(`/tokens/usage?days=${days}`),
   // ---- Goal management (overview) ----
