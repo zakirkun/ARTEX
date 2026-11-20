@@ -1,0 +1,63 @@
+{
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Ubah",
+    "close": "Tutup",
+    "search": "Cari",
+    "loading": "Memuat...",
+    "noResults": "Tidak ada hasil",
+    "confirm": "Konfirmasi",
+    "back": "Kembali",
+    "next": "Berikutnya",
+    "previous": "Sebelumnya",
+    "refresh": "Muat ulang",
+    "other": "Lainnya"
+  },
+  "search": {
+    "placeholder": "Cari dasbor, pengguna, dan lainnya…",
+    "noResults": "Tidak ada hasil ditemukan."
+  },
+  "nav": {
+    "groupFunctions": "Fungsi",
+    "groupSystem": "Sistem",
+    "dashboard": "Dasbor",
+    "chat": "Obrolan",
+    "tasks": "Tugas",
+    "findings": "Temuan",
+    "traffic": "Lalu Lintas",
+    "commands": "Eksekusi Alat",
+    "llmRecords": "Perekaman LLM",
+    "assets": "Aset",
+    "sync": "Sinkronisasi Aset",
+    "workspace": "Ruang Kerja",
+    "llm": "LLM",
+    "agents": "Agen",
+    "mcp": "MCP",
+    "skills": "Keahlian",
+    "tools": "Alat",
+    "notify": "Notifikasi",
+    "intercept": "Aturan Intersepsi",
+    "assetIntercept": "Intersepsi Aset",
+    "approvals": "Catatan Persetujuan",
+    "logs": "Log",
+    "settings": "Pengaturan Sistem"
+  },
+  "navUser": {
+    "changePassword": "Ubah kata sandi",
+    "signOut": "Keluar",
+    "language": "Bahasa"
+  },
+  "language": {
+    "title": "Bahasa",
+    "english": "English",
+    "indonesian": "Bahasa Indonesia"
+  },
+  "settings": {
+    "title": "Pengaturan Sistem",
+    "subtitle": "Sakelar runtime global",
+    "languageSection": "Bahasa & Wilayah",
+    "languageDescription": "Pilih bahasa antarmuka. Pengaturan disimpan di peramban Anda."
+  }
+}

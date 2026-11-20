@@ -14,10 +14,13 @@ import { Switch } from "@/components/ui/switch";
 import { api } from "@/lib/api";
 import { CHAT_SEND_MODE_OPTIONS, type ChatSendMode, setChatSendMode, useChatSendMode } from "@/lib/chat-send-mode";
 import type { Settings } from "@/lib/types";
+import { useTranslation } from "@/i18n/i18n-provider";
 
 import { NoiseProfileCard } from "./noise-profile-card";
+import { LanguageCard } from "./language-card";
 
 export default function SystemSettingsPage() {
+  const { t } = useTranslation();
   const [trafficCapture, setTrafficCapture] = React.useState(false);
   const [agentTrafficBinding, setAgentTrafficBinding] = React.useState(false);
   const [webSearch, setWebSearch] = React.useState(false);
@@ -275,8 +278,8 @@ export default function SystemSettingsPage() {
   return (
     <div className="flex flex-1 flex-col gap-4 md:gap-6">
       <div>
-        <h1 className="text-xl font-semibold tracking-tight">System settings</h1>
-        <p className="text-muted-foreground text-sm">Global runtime switches</p>
+        <h1 className="text-xl font-semibold tracking-tight">{t("settings.title")}</h1>
+        <p className="text-muted-foreground text-sm">{t("settings.subtitle")}</p>
       </div>
 
       {/* Multi-column instead of grid: the web search card is several times taller than the others and
@@ -285,6 +288,7 @@ export default function SystemSettingsPage() {
           balance-fill by content height. Card spacing uses mb rather than gap — in a multi-column layout
           column-gap only covers the gaps between columns; row spacing must come from the children. */}
       <div className="columns-1 gap-4 md:gap-6 lg:columns-2">
+        <LanguageCard />
         <Card className="mb-4 break-inside-avoid md:mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">

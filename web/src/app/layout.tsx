@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { APP_CONFIG } from "@/config/app-config";
+import { LOCALE_DEFAULT, LOCALE_HTML_LANG } from "@/i18n/config";
+import { I18nProvider } from "@/i18n/i18n-provider";
 import { fontVars } from "@/lib/fonts/registry";
 import { PREFERENCE_DEFAULTS } from "@/lib/preferences/preferences-config";
 import { ThemeBootScript } from "@/scripts/theme-boot";
@@ -22,7 +24,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     PREFERENCE_DEFAULTS;
   return (
     <html
-      lang="en"
+      lang={LOCALE_HTML_LANG[LOCALE_DEFAULT]}
+      data-lang={LOCALE_DEFAULT}
       data-theme-mode={theme_mode}
       data-theme-preset={theme_preset}
       data-content-layout={content_layout}
@@ -45,8 +48,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             navbarStyle={navbar_style}
             font={font}
           >
-            {children}
-            <Toaster />
+            <I18nProvider initialLocale={LOCALE_DEFAULT}>
+              {children}
+              <Toaster />
+            </I18nProvider>
           </PreferencesStoreProvider>
         </TooltipProvider>
       </body>
